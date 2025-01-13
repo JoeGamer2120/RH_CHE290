@@ -1,7 +1,7 @@
 # CHE290 Chemical Engineering Programming
 Rose Hulman Institute of Technology course for Chemical Engineering students for python basics.
 
-# Week Breakdown
+# Daily Breakdown
 ## Day 1 
 - Course Introduction
 - Computer Setup
