@@ -19,7 +19,7 @@ fig, ax = plt.subplots()
 
 # Plotting the series on the axis instance.
 ax.plot(x, y)
-
+plt.show()
 ###############################################################################
 # TODO 1: Read through the code to this point to understand what the code is 
 #         attempting to accomplish. Once you feel that you understand to code,
