@@ -46,17 +46,17 @@ ax.set_ylabel("f(x)")
 ###############################################################################
 
 # # Making a new figure instance and a new axis instance.
-# fig2, ax2= plt.subplots()
+fig2, ax2= plt.subplots()
 
 # # Plotting both series on the new axis instance with labels for the series.
-# ax2.plot(x, y1, label = "cos(x)")
-# ax2.plot(x, y2, label = "sin(x)")
+ax2.plot(x, y1, label = "cos(x)")
+ax2.plot(x, y2, label = "sin(x)")
 
 # # Setting the ticks to the inside, labeling the axes and displaying the legend.
-# ax2.tick_params(direction = 'in')
-# ax2.set_xlabel("x")
-# ax2.set_ylabel("f(x)")
-# ax2.legend()
+ax2.tick_params(direction = 'in')
+ax2.set_xlabel("x")
+ax2.set_ylabel("f(x)")
+ax2.legend()
 
 ###############################################################################
 # TODO 3: The two previous TODOs illustrated how to place two data sets on the
@@ -74,22 +74,25 @@ ax.set_ylabel("f(x)")
 ###############################################################################
 
 # # Making a new figure instance and a new axis instance.
-# fig3, ax3 = plt.subplots()
+fig3, ax3 = plt.subplots()
 
 # # Creating an array of the data. The data series will be contained in the rows
 # # of the array.
-# y_series = np.array([y1, y2])
+y_series = np.array([y1, y2])
 
 # # Creating a list of the labels.
-# labels = ["cos(x)", "sin(x)"]
+labels = ["cos(x)", "sin(x)"]
 
 # # Using a for loop to place each data series on the new figure.
-# for i in range(len(y_series)):
-#     ax3.plot(x, y_series[i], label = labels[i])
+for i in range(len(y_series)):
+    ax3.plot(x, y_series[i], label = labels[i])
 
 # # Setting the ticks to the inside, labeling the axes and displaying the legend
 # # at x = 0.5 (middle of the figure) and y = 1 (the top of the figure)
-# ax3.tick_params(direction = 'in')
-# ax3.set_xlabel("x")
-# ax3.set_ylabel("f(x)")
-# ax3.legend(bbox_to_anchor = (0.5, 1))
+ax3.tick_params(direction = 'in')
+ax3.set_xlabel("x")
+ax3.set_ylabel("f(x)")
+ax3.legend(bbox_to_anchor = (0.5, 1))
+
+
+plt.show()

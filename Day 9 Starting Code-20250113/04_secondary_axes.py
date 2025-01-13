@@ -32,27 +32,29 @@ ax.plot(x, y2, lw = 2, color = "red")
 ###############################################################################
 
 # # Making a new figure instance and a new axis instance.
-# fig1, ax1 = plt.subplots()
+fig1, ax1 = plt.subplots()
 
 # # Plotting the y1 series on the axis instance.
 # #   NOTE: As illustrated below, you can create subscripts by placing the 
 # #         characters in the name inside of $name$. The underscore (_) tells the
 # #         program what characters to subscript. To superscript, you would
 # #         replace the underscore with a caret (^).
-# ax1.plot(x, y1, lw = 2, color = "blue", label = "$y_1$")
-# ax1.set_ylabel("$y_1$")
-# ax1.tick_params(direction = 'in')
+ax1.plot(x, y1, lw = 2, color = "blue", label = "$y_1$")
+ax1.set_ylabel("$y_1$")
+ax1.tick_params(direction = 'in')
 
 # # To create a second y-axis, you will use the ax.twinx() method to create a 
 # # second axis instance. You can then plot the second series on the new axis
 # # instance.
-# ax2 = ax1.twinx()
-# ax2.plot(x, y2, lw = 2, color = "red", ls = "--", label = "$y_2$")
-# ax2.set_ylabel("$y_2$")
-# ax2.tick_params(direction = 'in')
+ax2 = ax1.twinx()
+ax2.plot(x, y2, lw = 2, color = "red", ls = "--", label = "$y_2$")
+ax2.set_ylabel("$y_2$")
+ax2.tick_params(direction = 'in')
 
 # # Each axis instance has its own legend, thus, you will need to display each
 # # legend separately. The placements below are used to place the legends in
 # # cloase proximity.
-# ax1.legend(bbox_to_anchor = (0.5, 1))
-# ax2.legend(bbox_to_anchor = (0.5, 0.9))
+ax1.legend(bbox_to_anchor = (0.5, 1))
+ax2.legend(bbox_to_anchor = (0.5, 0.9))
+
+plt.show()

@@ -37,3 +37,4 @@ for n in range(len(colors)):
 # Setting the ticks to the inside
 ax.tick_params(direction = 'in')
 
+plt.show(block=True)

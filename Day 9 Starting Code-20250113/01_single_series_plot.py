@@ -19,7 +19,6 @@ fig, ax = plt.subplots()
 
 # Plotting the series on the axis instance.
 ax.plot(x, y)
-plt.show()
 ###############################################################################
 # TODO 1: Read through the code to this point to understand what the code is
 #         attempting to accomplish. Once you feel that you understand to code,
@@ -42,11 +41,11 @@ plt.show()
 #             x-axis or ax.set_ylim(ymin, ymax) for the y-axis.
 ###############################################################################
 
-# ax.tick_params(direction = 'in')
-# ax.set_xlabel("x")
-# ax.set_ylabel("cos(x)")
-# ax.set_xlim(0, 2*np.pi)
-# ax.set_ylim(-1, 1)
+ax.tick_params(direction = 'in')
+ax.set_xlabel("x")
+ax.set_ylabel("cos(x)")
+ax.set_xlim(0, 2*np.pi)
+ax.set_ylim(-1, 1)
 
 ###############################################################################
 # TODO 3: Uncomment the line below and re-run the program. This line
@@ -59,3 +58,4 @@ plt.show()
 
 # fig.savefig("figure_1.png", dpi = 200)
 
+plt.show()
