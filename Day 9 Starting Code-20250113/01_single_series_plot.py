@@ -10,7 +10,7 @@ import numpy as np
 
 
 # Creating the dataset.
-x = np.linspace(0, 2*np.pi)
+x = np.linspace(0, 2 * np.pi)
 y = np.cos(x)
 
 
@@ -21,25 +21,25 @@ fig, ax = plt.subplots()
 ax.plot(x, y)
 plt.show()
 ###############################################################################
-# TODO 1: Read through the code to this point to understand what the code is 
+# TODO 1: Read through the code to this point to understand what the code is
 #         attempting to accomplish. Once you feel that you understand to code,
 #         run the program.
 #
-#         To see the figure, you need to select the "Plots" tab in the "object 
+#         To see the figure, you need to select the "Plots" tab in the "object
 #         inspector" (the top-right panel).
 ###############################################################################
 
 ###############################################################################
 # TODO 2: Uncomment the lines below and re-run the program. (You can uncomment
-#         all of the lines or do so selectively. 
+#         all of the lines or do so selectively.
 #
 #         Explanations of each line:
 #           - By default, the axis tick marks are to the outside. The first
 #             line sets the tick marks to the inside.
 #           - To set the axis labels, use the command ax.set_xlabel("label")
 #             for the x-axis or ax.set_ylabel("label") for the y-axis.
-#           - To set the axis ranges, use ax.set_xlim(xmin, xmax) for the 
-#             x-axis or ax.set_ylim(ymin, ymax) for the y-axis.   
+#           - To set the axis ranges, use ax.set_xlim(xmin, xmax) for the
+#             x-axis or ax.set_ylim(ymin, ymax) for the y-axis.
 ###############################################################################
 
 # ax.tick_params(direction = 'in')
@@ -58,3 +58,4 @@ plt.show()
 ###############################################################################
 
 # fig.savefig("figure_1.png", dpi = 200)
+
