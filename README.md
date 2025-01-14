@@ -29,3 +29,5 @@ Rose Hulman Institute of Technology course for Chemical Engineering students for
 - Simple array math 
 ## Day 8
 - Practice with Vectors and Matricies
+## Day 9
+- Making Plots in Python using matplotlib
