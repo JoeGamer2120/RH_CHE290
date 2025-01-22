@@ -17,12 +17,13 @@ Vectors with *equally* seperated elements
 `np.linspace(start, stop, number of points)`
 
 > [!NOTE]
-> stop in **inclusive**
+> `stop` in **inclusive**
 
  Zero & One Vectors
 
-`np.zeros(number of points)
- np.ones(number of points)`
+`np.zeros(number of points)`
+
+`np.ones(number of points)`
 
 # Matrices
 ## Creating Matricies
@@ -34,7 +35,9 @@ Vectors with *equally* seperated elements
 ### Method 2 
 
 `a = np.arange(1, 4)
+
 b = np.arrange(4, 7)
+
 c = np.arrange(7, 10)`
 
 ### Method 3
