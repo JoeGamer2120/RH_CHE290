@@ -80,11 +80,11 @@ def problem_1(m, n, p):
     """
     tot = 0.0
     count = 0
-    val = np.arange(m, n + 1, p)
+    val = np.arange(m, n + p, p)
 
     for x in range(len(val)):
 
-        if np.sin(val[x]) < 0:
+        if np.sin(val[x]) < -(10**-10):
             count += 1
 
         elif np.sin(val[x]) > 0.5:
