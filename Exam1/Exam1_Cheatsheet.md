@@ -87,6 +87,9 @@ Examples
 
 ## Formatting Types
 :e  Scientific format   Ex: {:.2f}
+
 :f  Fix point number format     Ex: {:e}
+
 :%  Percentage format   Ex: {:.0%}
+
 
