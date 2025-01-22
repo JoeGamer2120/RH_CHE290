@@ -34,11 +34,13 @@ Vectors with *equally* seperated elements
 *extra spaces are included for viewing*
 ### Method 2 
 
-`a = np.arange(1, 4)
+`a = np.arange(1, 4)`
 
-b = np.arrange(4, 7)
+`b = np.arrange(4, 7)`
 
-c = np.arrange(7, 10)`
+`c = np.arrange(7, 10)`
+
+`M = np.array([a, b, c])`
 
 ### Method 3
 
