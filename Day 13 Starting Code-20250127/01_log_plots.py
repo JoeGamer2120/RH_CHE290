@@ -5,8 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def main():
-    Clausius_Clapeyron(40700, 373, 1)
-    # internal_flow(6.5)
+    # Clausius_Clapeyron(40700, 373, 1)
+    internal_flow(6.5)
 
 def Clausius_Clapeyron(dH, Tref, Pref):
     """
@@ -35,13 +35,27 @@ def Clausius_Clapeyron(dH, Tref, Pref):
     #             temperature vector.
     #           - Don't forget that R = 8.314 J/mol K
     ###########################################################################
-
+    T = np.linspace(Tref, Tref + 100, 50)
+    P = np.zeros(len(T))
+    R = 8.314
+    
+    # for i in range(len(T)):
+    #     pwr = -(dH/R) * ((1/T[i]) - (1/Tref))
+    #     P[i] = Pref * np.exp(pwr)
+    pwr = -(dH/R) * ((1/T) - (1/Tref))
+    P = Pref * np.exp(pwr)
+    
     
     ###########################################################################
     # TODO 2: Create figure and axes instances and plot the pressure vs. the
     #         temperature. You do not have to do any additional formatting.
     ###########################################################################
-
+    fig, ax = plt.subplots()
+    ax.plot(1/T, P, color = 'blue', ls = '--')
+    
+    ax.set_xlabel('T')
+    ax.set_ylabel('P')
+    ax.tick_params(direction = 'in')
 
     ###########################################################################
     # TODO 3: Because of the exponential relationship between P and T, the
@@ -56,8 +70,13 @@ def Clausius_Clapeyron(dH, Tref, Pref):
     #         Create NEW figure and axes instance. Now, create a semilog plot
     #         of P vs 1/T. The resulting figure should be a straight line.
     ###########################################################################    
+    ax.semilogy()
+    
 
 
+
+
+    plt.show()
 def internal_flow(Pr):
     """
     You can find the equation for this problem in the separate handout.
@@ -85,20 +104,28 @@ def internal_flow(Pr):
     #         along the range. The default value is 50. For this problem,
     #         use the default.
     ###########################################################################    
+    Re = np.logspace(4, 5)
+    
     
 
     ###########################################################################
     # TODO 5: Create a vector of Nu using the values of Re that you created and
     #         and the value of Pr provided to the function. 
     ###########################################################################    
-
+    Nu = 0.023 * Re**0.8 * Pr**0.3
     
     ###########################################################################
     # TODO 6: Create figure and axes instances and plot Nu vs. Re. You do not 
     #         have to do any additional formatting.
     ###########################################################################
+    fig, ax1 = plt.subplots()
 
-    ###########################################################################
+    
+    ax1.plot(Re, Nu, color = 'red')
+    ax1.set_xlabel('Re')
+    ax1.set_ylabel('Nu')
+    ax1.tick_params(direction = 'in')
+        ###########################################################################
     # TODO 7: Because of the power-law relationship between Nu and Re, the
     #         plot from TODO 6 should not be a straight line (there should be
     #         curvature). To create a plot with a straight line, we can instead
@@ -110,7 +137,9 @@ def internal_flow(Pr):
     #         Create NEW figure and axes instance. Now, create a log-log plot
     #         of Nu vs Re. The resulting figure should be a straight line.
     ########################################################################### 
-
+    ax1.loglog()
+    
+    plt.show()
 
 
 
