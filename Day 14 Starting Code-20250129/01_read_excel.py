@@ -195,9 +195,9 @@ def make_figure(data, avg, std, max_time, max_data, min_time, min_data):
     temp2 = data[:, 2]
     temp3 = data[:, 3]
 
-    ax.scatter(time, temp1, color="green", marker="+")
-    ax.scatter(time, temp2, color="blue", marker="o")
-    ax.scatter(time, temp3, color="yellow", marker="*")
+    ax.scatter(time, temp1, color="blue", marker="2")
+    ax.scatter(time, temp2, color="orange", marker="s")
+    ax.scatter(time, temp3, color="green", marker="o")
 
     ###########################################################################
     # TODO 5: Add the following features to the figure:
@@ -217,8 +217,11 @@ def make_figure(data, avg, std, max_time, max_data, min_time, min_data):
     #           - A horizontal red dotted line at the average - std
     ###########################################################################
     # ax.plot(time, [avg] * len(time), color="black", markersize=0, ls="--")
+    x_bounds = np.array([0, 25])
 
-    ax.plot(time, [avg] * len(time), color="black", markersize=0, ls="--")
+    ax.plot(x_bounds, [avg] * 2, color="black", ls="--")
+    ax.plot(x_bounds, [avg + std] * 2, color = 'blue', ls = ':')
+    ax.plot(x_bounds, [avg - std] * 2, color = 'red', ls = ':')
     ###########################################################################
     # TODO 7: Finally, we are going to add annotations to the figure. To an
     #         annotation, you use:
@@ -239,6 +242,9 @@ def make_figure(data, avg, std, max_time, max_data, min_time, min_data):
     #         After you have completed all of these TODOs, you can compare your
     #         figure to the included "figure_1.png".
     ###########################################################################
+    ax.annotate('min', xy = (min_time + 1.5, min_data - 0.75))
+    ax.annotate('max', xy = (max_time + 1.5, max_data - 0.75))
+    ax.tick_params(direction = 'in')
 
     plt.show()
 

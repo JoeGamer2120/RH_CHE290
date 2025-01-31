@@ -37,9 +37,17 @@ def Wilson(L_12, L_21):
     #         You may copy your code from the similar practice problem on
     #         day 13.
     ###########################################################################
+    x1 = np.linspace(0, 1, 50)
+    x2 = 1 - x1
+    g1 = np.zeros(50)
+    g2 = np.zeros(50)
+    
+    for i in range(len(x1)):
+        g1[i] = np.exp(-np.log(L_12*x2[i] + x1[i]) + x2[i]*(L_12/(L_12*x2[i] + x1[i]) - L_21/(L_21*x1[i] + x2[i])))
+        g2[i] = np.exp(-np.log(L_21*x1[i] + x2[i]) - x1[i]*(L_12/(L_12*x2[i] + x1[i]) - L_21/(L_21*x1[i] + x2[i])))
+    
 
-
-
+    return x1, g1, g2
 
 
 
@@ -60,6 +68,10 @@ def get_data():
     #         convert the data into an ndarray, and return the array.
     ###########################################################################
     
+    df = pd.read_excel('Data File.xlsx', 'Activity Coefficients')
+    data = df.to_numpy()
+    
+    return data
 
 
 def make_plot(x1, g1, g2, data):
@@ -96,7 +108,28 @@ def make_plot(x1, g1, g2, data):
     #
     #         You can compare your figure to the included "figure_2.png".
     ###########################################################################
-
-
+    fig, ax = plt.subplots()
+    #
+    ### Wilson Model
+    #
+    ax.plot(x1, g1, color = 'red')
+    ax.plot(x1, g2, color = 'green')
+    
+    #
+    ### Activity Coefficient Model
+    #
+    x_data = data[:, 0]
+    gamma1 = data[:, 1]
+    gamma2 = data[:, 2]
+    
+    ax.scatter(x_data, gamma1, color = 'red', marker = 'o')
+    ax.scatter(x_data, gamma2, color = 'green', marker = 'o')
+    
+    ax.set_xlim(0, 1)
+    ax.set_xlabel('$x_1$')
+    ax.set_ylabel('$gamma$')
+    ax.tick_params(direction = 'in')
+    
+    plt.show()
     
 main()
