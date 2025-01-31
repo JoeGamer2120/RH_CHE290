@@ -12,16 +12,21 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def main():
     names, data = get_data()
-    print(names, data)
-    # avg, std, max_data, min_data = get_stats(data)
-    # max_time, max_tc = locate_max(data, max_data)
-    # min_time, min_tc = locate_min(data, min_data)
-    # make_figure(data, avg, std, max_time, max_data, min_time, min_data)
+    # print(names, data)
+    # print(names)
+    # print()
+    # print(data)
+    avg, std, max_data, min_data = get_stats(data)
+    max_time, max_tc = locate_max(data, max_data)
+    min_time, min_tc = locate_min(data, min_data)
+    make_figure(data, avg, std, max_time, max_data, min_time, min_data)
     # write_to_excel(np.sort(data[:, 1:], 0), "Sorted_data.xlsx")
-    
-def get_data(): 
+
+
+def get_data():
     """
     This function will read the Excel file and assign the information to
     relevant variable names before return the information.
@@ -37,11 +42,11 @@ def get_data():
     ###########################################################################
     # IMPORTING DATA FROM EXCEL
     #
-    # We can import Excel sheets using: 
-    #   pd.read_excel("filename") 
-    # from the Pandas library. 
-    # 
-    # Pandas will import the sheet's information into what's called a DataFrame 
+    # We can import Excel sheets using:
+    #   pd.read_excel("filename")
+    # from the Pandas library.
+    #
+    # Pandas will import the sheet's information into what's called a DataFrame
     # (hence, the variable name df). It will automatically put the top row
     # into labels. Thus, we can extract that information into its own variable
     # by using:
@@ -53,13 +58,14 @@ def get_data():
     #    variable_name.to_numpy()
     #
     # NOTE: if you have a csv file, you can use:
-    #        pd.read_csv("filename")    
+    #        pd.read_csv("filename")
     ###########################################################################
 
     ###########################################################################
     # TODO 1: Read the code below, then run the program. Examine the data
     #         that gets printed.
     ###########################################################################
+    # pd.read_excel("Data File.xlsx")
 
     ###########################################################################
     # TODO 2: You should have noticed that the data printed from TODO 1 is not
@@ -77,14 +83,14 @@ def get_data():
     #         You can add print statements below function calls in main() to
     #         verify each function is performing correctly.
     ###########################################################################
-    
-    
-    df = pd.read_excel('Data File.xlsx')
-    # df = pd.read_excel('Data File.xlsx', 'Temperature Data')
+
+    # df = pd.read_excel("Data File.xlsx")
+    df = pd.read_excel("Data File.xlsx", "Temperature Data")
     names = df.columns.to_numpy()
     data = df.to_numpy()
 
     return names, data
+
 
 def get_stats(data):
     """
@@ -93,15 +99,16 @@ def get_stats(data):
         - The standard deviation
         - The maximum
         - The minimum
-    for all of the temperature data.  
+    for all of the temperature data.
 
     """
     avg = np.mean(data[:, 1:])
     std = np.std(data[:, 1:])
     max_data = np.max(data[:, 1:])
     min_data = np.min(data[:, 1:])
-    
+
     return avg, std, max_data, min_data
+
 
 def locate_max(data, my_max):
     """
@@ -124,11 +131,12 @@ def locate_max(data, my_max):
 
     """
     for i in range(len(data)):
-        for j in range(1, len(data[0]+1)):
+        for j in range(1, len(data[0] + 1)):
             if data[i, j] == my_max:
                 hour = i
-                tc = j    
+                tc = j
     return hour, tc
+
 
 def locate_min(data, my_min):
     """
@@ -150,17 +158,24 @@ def locate_min(data, my_min):
         The number of the thermocouple that read the minimum.
 
     """
-    
+
     ###########################################################################
     # TODO 3: Complete this function. See locate_max if you need help.
     #
     #         Once you have completed this function, you can uncomment the
     #         call to it in main().
     ###########################################################################
-    
+
+    for i in range(len(data)):
+        for j in range(len(data[0])):
+            if data[i, j] == my_min:
+                hour = i
+                tc = j
+    return hour, tc
+
 
 def make_figure(data, avg, std, max_time, max_data, min_time, min_data):
-    
+
     ###########################################################################
     # TODO 4: Create a figure of the data. The figure and axes instances have
     #         already been created for you.
@@ -175,24 +190,35 @@ def make_figure(data, avg, std, max_time, max_data, min_time, min_data):
     ###########################################################################
 
     fig, ax = plt.subplots()
+    time = data[:, 0]
+    temp1 = data[:, 1]
+    temp2 = data[:, 2]
+    temp3 = data[:, 3]
+
+    ax.scatter(time, temp1, color="green", marker="+")
+    ax.scatter(time, temp2, color="blue", marker="o")
+    ax.scatter(time, temp3, color="yellow", marker="*")
 
     ###########################################################################
     # TODO 5: Add the following features to the figure:
     #           - The range on x from 0 to 25
-    #           - The label on x: time (hour)    
+    #           - The label on x: time (hour)
     #           - The label on y: temperature (oF) ...where o is superscripted
     #           - Tick marks in
     ###########################################################################
-
-
+    ax.set_xlabel("time (hour)")
+    ax.set_ylabel("$^oF$")
+    ax.set_xlim(0, 25)
 
     ###########################################################################
     # TODO 6: Now add the following LINES to the figure:
     #           - A horizontal black dashed line at the average.
-    #           - A horizontal blue dotted line at the average + std    
+    #           - A horizontal blue dotted line at the average + std
     #           - A horizontal red dotted line at the average - std
     ###########################################################################
-    
+    # ax.plot(time, [avg] * len(time), color="black", markersize=0, ls="--")
+
+    ax.plot(time, [avg] * len(time), color="black", markersize=0, ls="--")
     ###########################################################################
     # TODO 7: Finally, we are going to add annotations to the figure. To an
     #         annotation, you use:
@@ -204,7 +230,7 @@ def make_figure(data, avg, std, max_time, max_data, min_time, min_data):
     #         more stylized annotations, but we will keep it simple here.
     #
     #         Add two annotations: "max" and "min". Use an x-coordinate of the
-    #         time where those values occurred and a y-coordinate equal to 
+    #         time where those values occurred and a y-coordinate equal to
     #         there values.
     #
     #         The initial placement of those values probably looks a little off
@@ -212,8 +238,9 @@ def make_figure(data, avg, std, max_time, max_data, min_time, min_data):
     #
     #         After you have completed all of these TODOs, you can compare your
     #         figure to the included "figure_1.png".
-    ###########################################################################    
+    ###########################################################################
 
+    plt.show()
 
 
 def write_to_excel(data, filename):
@@ -226,10 +253,12 @@ def write_to_excel(data, filename):
     # to write the DataFrame information into the file with filename. We could
     # also add sheet names if desired.
     ###########################################################################
-    
+
     data = pd.DataFrame(data)
 
     with pd.ExcelWriter(filename) as writer:
         data.to_excel(writer)
 
+
 main()
+
