@@ -16,6 +16,9 @@ where
     k: reaction rate constant
 
 """
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import solve_ivp
 
 
 def main():
@@ -45,7 +48,12 @@ def odes(t, C, k):
     
     ###########################################################################
     # TODO 1: Complete this function according the problem statement. 
+    # The governing differential equations are:
+    #     dCa/dt = -2kCa^0.5
+    #     dCb/dt = 2kCa^0.5
+    #     dCc/dt = kCa^0.5
     ###########################################################################
+    return -2 * k * C[0]**0.5, 2 * k * C[0]**0.5, k * C[0]**0.5
     
     
 
@@ -83,7 +91,21 @@ def make_plot(t, C):
     #           - a legend
     #           - x-axis limits from 0 to 35
     ###########################################################################
+    fig, ax = plt.subplots()
     
+    Ca = C[0]
+    Cb = C[1]
+    Cc = C[2]
+    
+    ax.scatter(t, Ca, color = 'Red', label = '$C_a$')
+    ax.scatter(t, Cb, color = 'Blue', label = '$C_b$')
+    ax.scatter(t, Cc, color = 'Green', label = '$C_c$')
+    ax.tick_params(direction = 'in')
+    ax.set_xlabel('time (s)')
+    ax.set_ylabel('concentration (M)')
+    ax.set_xlim(0, 35)
+    ax.legend()
+    plt.show()
 
 
 def system_of_rxns():
@@ -107,6 +129,18 @@ def system_of_rxns():
     #           - A total of 50 points should be used for the time
     #           - k = 0.025
     ###########################################################################
-
+    t_start = 0
+    t_end = 35
+    t_span = np.linspace(t_start, t_end, 50)
+    k = 0.025
+    
+    init_value = [2, 0, 0]
+    sol = solve_ivp(odes, [t_start, t_end], init_value, t_eval = t_span, args = (k, ))
+    
+    t = sol.t
+    C = sol.y
+    
+    make_plot(t, C)
+    
 
 main()

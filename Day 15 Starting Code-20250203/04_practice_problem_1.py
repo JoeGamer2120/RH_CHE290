@@ -103,11 +103,15 @@ def make_plot(V, X, k, Ca0, Fa0):
     ###########################################################################
     X_act = k * Ca0**2 * V / (Fa0 + k * Ca0**2 * V)
     
-    fig, ax = plt.subplot()
+    fig, ax = plt.subplots()
     ax.scatter(V, X, label = "IVP Solution")
     ax.plot(V, X_act, label = "Actual Solution")
-    ax.set_xlabel("$volume dm^2$")
+    ax.set_xlabel("volume $dm^3$")
     ax.set_ylabel('conversion')
+    ax.legend()
+    ax.set_xlim(0, 1.5)
+    
+    plt.show()
     
 
     
