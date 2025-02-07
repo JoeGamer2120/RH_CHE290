@@ -17,7 +17,7 @@ from scipy.integrate import solve_ivp
 
 
 def f(x, y, a):
-    return -a
+    return y[0], -a
 
 
 def make_plot(x, y, y_e):
@@ -72,7 +72,7 @@ sol = solve_ivp(f, [x_s, x_e], [T_0, T_p], t_eval=x_span, args=(a,))
 # TODO 4: Store the result of the integration into its own variable.
 ###############################################################################
 x = sol.t
-T = sol.y
+T = sol.y[1]
 
 ###############################################################################
 # TODO 5: Create a vector of the analytical result.
@@ -85,3 +85,4 @@ T_an = -(a / 2) * x**2 + Tmax
 ###############################################################################
 
 make_plot(x_span, T, T_an)
+plt.show()
