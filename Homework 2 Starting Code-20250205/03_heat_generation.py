@@ -17,7 +17,7 @@ from scipy.integrate import solve_ivp
 
 
 def f(x, y, a):
-    return y[0], -a
+    return y[1], -a
 
 
 def make_plot(x, y, y_e):
