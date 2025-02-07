@@ -2,9 +2,10 @@
 Complete this problem according to the specifications outlined in the problem
 statement.
 
-YOUR NAME:
+YOUR NAME: Josiah Schlabach
 """
-
+import numpy as np
+from scipy.integrate import quad
 
 def main():
     test_work()
@@ -41,8 +42,9 @@ def test_work():
 ###############################################################################
 
 def Peng_Robinson(V, T, a, b):
+    R = 8.314 * 10**-5      # bar m^3 / mol
 
-    return 
+    return (R * T) / (V - b) - (a) / (V * (V + b) + b * (V - b))
 
 ###############################################################################
 # TODO 2: Complete the function below to determine the amount of work
@@ -52,7 +54,8 @@ def Peng_Robinson(V, T, a, b):
 ###############################################################################
 
 def work(V_init, V_final, T, a, b):
-
-    return 
+    I, err = quad(Peng_Robinson, V_init, V_final, args=(T, a, b))
+    
+    return -int(I * 10**5)  # J / mol
 
 main()

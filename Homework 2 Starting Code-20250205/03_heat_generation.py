@@ -72,7 +72,7 @@ sol = solve_ivp(f, [x_s, x_e], [T_0, T_p], t_eval=x_span, args=(a,))
 # TODO 4: Store the result of the integration into its own variable.
 ###############################################################################
 x = sol.t
-T = sol.y[1]
+T = sol.y[0]
 
 ###############################################################################
 # TODO 5: Create a vector of the analytical result.
