@@ -1,52 +1,58 @@
-"""
-Complete this problem according to the specifications outlined in the problem
+""" Complete this problem according to the specifications outlined in the problem
 statement.
 
 YOUR NAME: Josiah Schlabach
 """
 
+from re import A
 import numpy as np
 import pandas as pd
 from scipy import integrate as ig
 
 
-
 def main():
     names, data = get_data()
+    global t, Q, c
+    ### GLOBAL VARIABLE DECLARATION
+    # For use throughout code
+    t = data[:, 0]
+    Q = data[:, 1]
+    c = data[:, 2]
     test_trap(data)
     test_simp(data)
 
 
 def test_trap(data):
-   
+
     expected = 9521.0
     actual = integrate_trap(data)
     print("Testing integrate_trap:")
     print("-----------------------")
     print("Expected:", expected)
     print("Actual:", actual)
-    
+
+
 def test_simp(data):
-   
+
     expected = 9628.9583
     actual = integrate_simp(data)
     print("\nTesting integrate_simp:")
     print("-----------------------")
     print("Expected:", expected)
     print("Actual:", actual)
-    
 
-    
+
 ###############################################################################
 # TODO 1: Complete get_data to retrieve the data from the provided Excel
 #         workbook. The function should return the names of the variables in
 #         an ndarray, and the numerical information in another ndarray.
 ###############################################################################
 
-def get_data(): 
+
+def get_data():
     """
     This function retrieves the information in the Excel sheet, converts that
-    information into ndarrays of the labels and the numerical data, and 
+    information into ndarrays of the labels and the numerical data, and
     returns those variables.
 
     Returns
@@ -61,16 +67,18 @@ def get_data():
     names = df.columns.to_numpy()
     data = df.to_numpy()
 
-
     return names, data
+
+
 ###############################################################################
 
 ###############################################################################
 # TODO 2: Complete integrate_trap to perform the numerical integration of the
 #         data using the trapezoidal rule.
 #
-#         After completing the function, run test_trap to test your code. 
+#         After completing the function, run test_trap to test your code.
 ###############################################################################
+
 
 def integrate_trap(data):
     """
@@ -87,15 +95,18 @@ def integrate_trap(data):
         The result of the numerical integration.
 
     """
-    
-    return 
+    I = ig.trapezoid(Q * c, t)
+
+    return I
+
 
 ###############################################################################
 # TODO 3: Complete integrate_simp to perform the numerical integration of the
 #         data using Simpson's rule.
 #
-#         After completing the function, run test_simp to test your code. 
+#         After completing the function, run test_simp to test your code.
 ###############################################################################
+
 
 def integrate_simp(data):
     """
@@ -112,13 +123,9 @@ def integrate_simp(data):
         The result of the numerical integration.
 
     """
-    
-    return 
-    
-    
+    I = ig.simpson(Q * c, x=t)
+
+    return I
+
 
 main()
-
-# t = data[:, 0]
-# Q = data[:, 1]
-# c = data[:, 2]
