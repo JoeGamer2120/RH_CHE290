@@ -31,3 +31,25 @@ Rose Hulman Institute of Technology course for Chemical Engineering students for
 - Practice with Vectors and Matricies
 ## Day 9
 - Making Plots in Python using matplotlib
+## Day 10, 11 & 12
+- Exam Review and Exam 1
+## Day 13
+- Log Plots with matplotlib
+## Day 14
+- Pandas and importing Excel files
+## Day 15
+- Initial Value Problems
+- solve_IVP
+## Day 16
+- Second order IVP
+- solve_IVP
+## Day 17 
+- Boundary Value Problems
+- solve_BVP
+## Day 18
+- Numerical Integration
+    - Trapezoid rule
+    - Simpson rule
+## Day 19 
+- Solving nonlinear problems
+- Least Squares Regression
