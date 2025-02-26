@@ -15,8 +15,8 @@ b21 = 3950
 
 def main():
     # test_NRTL()
-    test_f()
-    # test_LLE()
+    # test_f()
+    test_LLE()
 
 def test_NRTL():
     T = 335
@@ -195,8 +195,8 @@ def solve_LLE(T, a, b12, b21):
     #         When you are done, run the test in main() to ensure your function
     #         is working correctly.
     ###########################################################################
-    
-    return 
+    sol = fsolve(f, [0.99, 0.01], args = (T, a, b12, b21))
+    return sol
 main()
 
     

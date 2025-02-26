@@ -5,7 +5,6 @@ provided in the problem statement.
 YOUR NAME:
 """
 
-from os import wait
 import numpy as np
 from scipy import optimize
 import pandas as pd
@@ -15,12 +14,12 @@ import matplotlib.pyplot as plt
 def main():
     a = 0.3
     P, x, y, P1_vap, P2_vap = get_data()
-    # G_exp = G_data(P, x, y, P1_vap, P2_vap)
-    # tau_12, tau_21 = regress_parameters(a, x, G_exp)
+    G_exp = G_data(P, x, y, P1_vap, P2_vap)
+    tau_12, tau_21 = regress_parameters(a, x, G_exp)
     # test_regression(tau_12, tau_21)
     # test_NRTL()
-    # P_m, x_m, y_m = model_value(a, tau_12, tau_21, P1_vap, P2_vap)
-    # make_plot(P, x, y, P_m, x_m, y_m)
+    P_m, x_m, y_m = model_value(a, tau_12, tau_21, P1_vap, P2_vap)
+    make_plot(P, x, y, P_m, x_m, y_m)
 
 
 def test_regression(tau_12, tau_21):
@@ -62,13 +61,29 @@ def get_data():
     # P_col = excel["P"]
     # x1_col = excel["x1"]
     # y1_col = excel["y1"]
-    P = excel[2:17, :1]
-    x1 = excel[2:17, 1:2]
-    y1 = excel[2:17, 2:3]
-    P1_vap = excel[16:17, :1]
-    P2_vap = excel[2:3, :1]
+    # P_f = excel.iloc[1:16, 0:1]
+    # x1_f = excel.iloc[1:16, 1:2]
+    # y1_f = excel.iloc[1:16, 2:3]
+    # P1_vap_f = excel.iloc[16:17, 0:1]
+    # P2_vap_f = excel.iloc[0:1, 0:1]
+    
+    # P = P_f.to_numpy()
+    
+    # x1 = x1_f.to_numpy()
+    
+    # y1 = y1_f.to_numpy()
+    
+    # P1_vap = P1_vap_f.to_numpy()
+    # P2_vap = P2_vap_f.to_numpy()
+    
+    data = excel.to_numpy()
+    P = data[1:16, 0]
+    x1 = data[1:16, 1]
+    y1 = data[1:16, 2]
+    P1_vap = data[16, 0]
+    P2_vap = data[0, 0]
 
-    return
+    return P, x1, y1, P1_vap, P2_vap
 
 
 def G_data(P, x, y, P1_vap, P2_vap):
@@ -99,8 +114,13 @@ def G_data(P, x, y, P1_vap, P2_vap):
     ###########################################################################
     # TODO 2: Calculate the values of G_ex from the data.
     ###########################################################################
+    x2 = 1 - x
+    y2 = 1 - y
+    
+    gamma_1 = y*P / (x*P1_vap)
+    gamma_2 = y2*P / (x2*P2_vap)  
 
-    return
+    return x*np.log(gamma_1) + x2*np.log(gamma_2)
 
 
 def G_resid(tau, a, x, G_exp):
@@ -133,8 +153,15 @@ def G_resid(tau, a, x, G_exp):
     # TODO 3: Calculate the values of G_ex using the model. Return the
     #         residuals.
     ###########################################################################
+    x2 = 1 - x
+    G12 = np.exp(-a*tau[0])
+    G21 = np.exp(-a*tau[1])
+    
+    G_model = x*x2*((tau[1]*G21 / (x + x2*G21)) + (tau[0]*G12 / (x2 + x*G12)))
+    
+    G_resid = G_exp - G_model
 
-    return
+    return G_resid
 
 
 def regress_parameters(a, x, G_exp):
@@ -146,8 +173,10 @@ def regress_parameters(a, x, G_exp):
     #         When you are done, run the test in main() to ensure your function
     #         is working correctly.
     ###########################################################################
+    results = optimize.least_squares(G_resid, (1, 1), args = (a, x, G_exp))
+    coeff = results.x
 
-    return
+    return coeff
 
 
 def NRTL(x, a, tau12, tau21):
@@ -178,8 +207,15 @@ def NRTL(x, a, tau12, tau21):
     #         When you are done, run the test in main() to ensure your function
     #         is working correctly.
     ###########################################################################
+    x1 = x
+    x2 = 1 - x
+    G12 = np.exp(-a*tau12)
+    G21 = np.exp(-a*tau21)
+    
+    gam1 = np.exp(x2**2 * (tau21 * (G21 / (x1 + x2*G21))**2 + (tau12*G12 / (x2 + x1*G12)**2)))
+    gam2 = np.exp(x1**2 * (tau12 * (G12 / (x2 + x1*G12))**2 + (tau21*G21 / (x1 + x2*G21)**2)))
 
-    return
+    return gam1, gam2
 
 
 def model_value(a, tau12, tau21, P1_vap, P2_vap):
@@ -211,19 +247,21 @@ def model_value(a, tau12, tau21, P1_vap, P2_vap):
     ###########################################################################
     # TODO 6: Create a vector of x values from 0 to 1 using 51 data points.
     ###########################################################################
-
+    x1 = np.linspace((0, 1), 51)
     ###########################################################################
     # TODO 7: Determine the pressures for each value of your x vector.
     ###########################################################################
-
+    x2 = 1 - x1
+    gam1, gam2 = NRTL(x1, a, tau12, tau21)
+    P = x1*gam1*P1_vap + x2*gam2*P2_vap
     ###########################################################################
     # TODO 8: Determine the y values for each value of your x vector.
     #
     #         After you complete this function, you can compare the figure
     #         created using make_plot to the figure included in the download.
     ###########################################################################
-
-    return
+    y = x1*gam1*P1_vap/P
+    return P, x1, y
 
 
 def make_plot(P, x, y, P_m, x_m, y_m):
@@ -238,6 +276,7 @@ def make_plot(P, x, y, P_m, x_m, y_m):
     ax.set_xlabel("mole fraction 1")
     ax.set_ylabel("P (mmHg)")
     ax.set_xlim(0, 1)
+    plt.show()
 
 
 main()
